@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BulkyBook.DataAccess.Repository.IRepolository
 {
-    public interface ICoverTypeRepository
+    public interface ICoverTypeRepository : IRepository<CoverType>
     {
         void Update(CoverType obj);
     }
