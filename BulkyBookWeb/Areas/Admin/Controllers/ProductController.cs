@@ -46,7 +46,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public void Upsert(Product obj)
+        public void Upsert(ProductVM obj, IFormFile file)
         {
 
         }
