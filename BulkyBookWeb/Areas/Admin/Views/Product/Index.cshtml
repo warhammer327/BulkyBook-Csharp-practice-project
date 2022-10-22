@@ -9,16 +9,21 @@
             <a class="btn btn-primary" asp-controller="Product" asp-action="Upsert"> <i class="bi bi-plus-lg"></i> Create Product</a>
         </div>
     </div>
+    <br />
+    <br />
+    <table id="myTable" class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Author</th>
+                @* <th>ListPrice</th>*@
+                @* <th>Category</th>*@
+            </tr>
+        </thead>
+    </table>
 </div>
-<br />
-<table class="table table-bordered table-striped" style="width:auto; border-width:thick; border-color:white">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>ISBN</th>
-            <th>ListPrice</th>
-            <th>Author</th>
-            <th>Category</th>
-        </tr>
-    </thead>
-</table>
+
+@section Scripts{
+    <script src="~/js/product.js"></script>
+}
