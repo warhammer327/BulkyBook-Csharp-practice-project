@@ -42,9 +42,12 @@ namespace BulkyBook.DataAccess.Repository
         {
             IQueryable<T> query = dbSet;
             query = query.Where(filter);
-            foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            if (includeProperties != null)
             {
-                query = query.Include(includeProp);
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
             }
             return query.FirstOrDefault();
         }

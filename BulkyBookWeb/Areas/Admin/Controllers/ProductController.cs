@@ -40,7 +40,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             }
             else
             {
-                productVM.product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id,includeProperties: "Category,CoverType");
+                productVM.product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id, includeProperties: "Category,CoverType");
                 return View(productVM);
             }
 
@@ -78,11 +78,11 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 
                 if (obj.product.Id == 0)
                 {
-                 _unitOfWork.Product.Add(obj.product);                   
+                    _unitOfWork.Product.Add(obj.product);
                 }
                 else
                 {
-                _unitOfWork.Product.Update(obj.product);
+                    _unitOfWork.Product.Update(obj.product);
                 }
 
                 _unitOfWork.Save();
@@ -98,6 +98,26 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         {
             var productList = _unitOfWork.Product.GetAll(includeProperties: "Category,CoverType");
             return Json(new { data = productList });
+        }
+
+
+        [HttpDelete] 
+        public IActionResult Delete(int? id)
+        {
+            var obj = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
+            if (obj == null)
+            {
+                return Json(new { success = false, message = "Error" });
+            }
+            var oldImagePath = Path.Combine(_hostEnvironment.WebRootPath, obj.ImageURL.TrimStart('\\'));
+            if (System.IO.File.Exists(oldImagePath))
+            {
+                System.IO.File.Delete(oldImagePath);
+            }
+            _unitOfWork.Product.Remove(obj);
+            _unitOfWork.Save();
+            return Json(new { success = true, message = "deletion success" });
+
         }
         #endregion
     }
